@@ -3,26 +3,37 @@ const props = defineProps<{ items: Medicine[] }>()
 </script>
 
 <template>
-  <table>
-    <thead>
-      <th>Description</th>
-      <th>Quantity</th>
-      <th>Unit</th>
-      <th>Batch</th>
-      <th>Expiry</th>
-      <th>Price</th>
-      <th><span class="sr-only">Actions</span></th>
-    </thead>
-    <tbody>
-      <tr v-bind:key="medicine.id" v-for="medicine in props.items">
-        <th>{{ medicine.description }}</th>
-        <td>{{ medicine.quantity }}</td>
-        <td>{{ medicine.unit }}</td>
-        <td>{{ medicine.batch }}</td>
-        <td>{{ medicine.expiry }}</td>
-        <td>{{ medicine.price }}</td>
-        <td><button type="button">Remove</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="relative w-full overflow-x-auto px-4">
+    <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+      <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+        <th scope="col" class="px-6 py-3">Description</th>
+        <th scope="col" class="px-6 py-3">Quantity</th>
+        <th scope="col" class="px-6 py-3">Unit</th>
+        <th scope="col" class="px-6 py-3">Batch</th>
+        <th scope="col" class="px-6 py-3">Expiry</th>
+        <th scope="col" class="px-6 py-3">Price</th>
+        <th scope="col" class="px-6 py-3">Actions</th>
+      </thead>
+      <tbody class="divide-y">
+        <tr
+          class="border-b bg-white hover:cursor-pointer hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700"
+          v-bind:key="medicine.id"
+          v-for="medicine in props.items"
+        >
+          <th
+            scope="row"
+            class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+          >
+            {{ medicine.description }}
+          </th>
+          <td class="px-6 py-4">{{ medicine.quantity }}</td>
+          <td class="px-6 py-4">{{ medicine.unit }}</td>
+          <td class="px-6 py-4">{{ medicine.batch }}</td>
+          <td class="px-6 py-4">{{ medicine.expiry }}</td>
+          <td class="px-6 py-4">{{ medicine.price }}</td>
+          <td class="px-6 py-4"><button type="button">Remove</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
