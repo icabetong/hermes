@@ -6,10 +6,6 @@ The application allows users to add, update, and delete medicine items from thei
 
 The UI is designed using TailwindCSS, making it responsive and visually appealing. The application is built using TypeScript, which provides type checking and helps catch errors before runtime. Vue 3 provides reactive data bindings and efficient rendering, making the application fast and responsive.
 
-The application is deployed using GitHub Pages and can be easily customized and extended. The code is well-organized and modular, making it easy to maintain and update.
-
-This repository can be used as a starting point for building more complex pharmacy inventory management systems or as a standalone application for small pharmacies.
-
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
