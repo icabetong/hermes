@@ -416,6 +416,11 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.36.0.tgz#9837f768c03a1e4a30bd304a64fb8844f0e72efe"
   integrity sha512-lxJ9R5ygVm8ZWgYdUweoq5ownDlJ4upvoWmO4eLxBYHdMo+vZ/Rx0EN6MbKWDJOSUGrqJy2Gt+Dyv/VKml0fjg==
 
+"@headlessui/vue@^1.7.12":
+  version "1.7.12"
+  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.7.12.tgz#963b2eb2f548278c49f2d1e67f0a4a84f54078da"
+  integrity sha512-IV0k1I2I8Bj37HljFF231Y9cpldfiucf+inMCxA/VPoQT6UTxo0N/rb78CrogBxXNfsPxKmz3y/nlv+eRz6zvg==
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
