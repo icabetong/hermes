@@ -5,6 +5,7 @@ import { DeviceFloppyIcon } from 'vue-tabler-icons'
 const props = defineProps<{
   open: boolean
   title: string
+  medicine: Medicine | null
 }>()
 const emits = defineEmits(['dismiss'])
 
@@ -17,7 +18,7 @@ const dismiss = () => emits('dismiss')
       <div class="flex-1 space-y-4">
         <div>
           <label class="form-label" for="description">Description</label>
-          <input type="text" class="form-input" />
+          <input type="text" class="form-input" :value="props.medicine?.description" />
         </div>
         <div>
           <label class="form-label" for="quantity">Quantity</label>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{ items: Medicine[] }>()
+const emits = defineEmits(['select', 'remove'])
 </script>
 
 <template>
@@ -19,6 +20,7 @@ const props = defineProps<{ items: Medicine[] }>()
           class="border-b bg-white hover:cursor-pointer hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700"
           v-bind:key="medicine.id"
           v-for="medicine in props.items"
+          @click.stop="emits('select', medicine)"
         >
           <th
             scope="row"
@@ -31,7 +33,9 @@ const props = defineProps<{ items: Medicine[] }>()
           <td class="px-6 py-4">{{ medicine.batch }}</td>
           <td class="px-6 py-4">{{ medicine.expiry }}</td>
           <td class="px-6 py-4">{{ medicine.price }}</td>
-          <td class="px-6 py-4"><button type="button">Remove</button></td>
+          <td class="px-6 py-4">
+            <button type="button" @click.stop="emits('remove', medicine)">Remove</button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -4,8 +4,12 @@ import { PlusIcon } from 'vue-tabler-icons'
 import DataTable from '@/components/data-table/DataTable.vue'
 import DataEditor from '@/components/data-editor/DataEditor.vue'
 
-const state = reactive({
-  open: false
+const state = reactive<{
+  open: boolean
+  medicine: Medicine | null
+}>({
+  open: false,
+  medicine: null
 })
 
 const medicines: Medicine[] = [
@@ -33,7 +37,14 @@ const medicines: Medicine[] = [
   }
 ]
 
-const triggerEditor = () => (state.open = !state.open)
+const triggerEditorCreate = () => {
+  state.open = !state.open
+  state.medicine = null
+}
+const triggerEditorUpdate = (medicine: Medicine) => {
+  state.medicine = medicine
+  state.open = true
+}
 </script>
 
 <template>
@@ -41,13 +52,18 @@ const triggerEditor = () => (state.open = !state.open)
     <div class="flex h-full flex-1 flex-col items-center rounded-lg border bg-white p-2">
       <div class="flex w-full items-center justify-between p-4">
         <h1 class="text-2xl font-bold">Medicines</h1>
-        <button type="button" class="button-primary flex items-center" @click="triggerEditor">
+        <button type="button" class="button-primary flex items-center" @click="triggerEditorCreate">
           <plus-icon class="mr-2 h-4 w-4" />
           Add Medicine
         </button>
       </div>
-      <data-table :items="medicines" />
-      <data-editor :open="state.open" title="Create Medicine" @dismiss="triggerEditor" />
+      <data-table :items="medicines" @select="triggerEditorUpdate" />
+      <data-editor
+        :medicine="state.medicine"
+        :open="state.open"
+        :title="state.medicine ? 'Edit Medicine' : 'Create Medicine'"
+        @dismiss="triggerEditorCreate"
+      />
     </div>
   </main>
 </template>
