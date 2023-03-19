@@ -1,6 +1,14 @@
 # hermes
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a simple web application for tracking medicine inventory for a small pharmacy. The application is built using Vue 3, TypeScript, and TailwindCSS.
+
+The application allows users to add, update, and delete medicine items from their inventory. Each medicine item can have a name, description, quantity, price, and expiry date. Users can search for medicines by name, view details about individual medicines, and sort the inventory by various attributes.
+
+The UI is designed using TailwindCSS, making it responsive and visually appealing. The application is built using TypeScript, which provides type checking and helps catch errors before runtime. Vue 3 provides reactive data bindings and efficient rendering, making the application fast and responsive.
+
+The application is deployed using GitHub Pages and can be easily customized and extended. The code is well-organized and modular, making it easy to maintain and update.
+
+This repository can be used as a starting point for building more complex pharmacy inventory management systems or as a standalone application for small pharmacies.
 
 ## Recommended IDE Setup
 
@@ -13,8 +21,8 @@ TypeScript cannot handle type information for `.vue` imports by default, so we r
 If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ## Customize configuration
