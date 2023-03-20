@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect, reactive } from 'vue'
 import SideBar from '@/components/side-bar/SideBar.vue'
-import { DeviceFloppyIcon } from 'vue-tabler-icons'
+import { DeviceFloppyIcon, CurrencyPesoIcon } from 'vue-tabler-icons'
 
 const props = defineProps<{
   open: boolean
@@ -79,6 +79,9 @@ watchEffect(() => {
 
   state.value = props.medicine
 })
+
+const date = new Date(state.value.expiry).toISOString()
+const expiryDate = date.substring(0, date.indexOf('T')).split('/').join('-')
 </script>
 
 <template>
@@ -103,19 +106,20 @@ watchEffect(() => {
         </div>
         <div>
           <label class="form-label" for="expiry">Expiry</label>
-          <input type="text" id="expiry" class="form-input" v-model="state.expiry" />
+          <input type="date" id="expiry" class="form-input" v-model="expiryDate" />
         </div>
         <div>
           <label class="form-label" for="price">Price</label>
-          <input type="number" id="price" class="form-input" v-model="state.price" />
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <currency-peso-icon class="h-4 w-4 text-gray-500 dark:text-gray-400" />
+            </div>
+            <input type="number" id="price" class="form-input pl-10" v-model="state.price" />
+          </div>
         </div>
       </div>
 
-      <button
-        type="submit"
-        class="button-primary flex w-full items-center justify-center"
-        @click="dismiss"
-      >
+      <button type="submit" class="button-primary flex w-full items-center justify-center">
         <device-floppy-icon class="mr-2 h-4 w-4" />
         Save
       </button>
