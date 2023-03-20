@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { PlusIcon, SearchIcon, ChevronDownIcon } from 'vue-tabler-icons'
+import { Menu as MenuRoot, MenuButton, MenuItem, MenuItems, TransitionRoot } from '@headlessui/vue'
 import DataTable from '@/components/data-table/DataTable.vue'
 import DataEditor from '@/components/data-editor/DataEditor.vue'
 
@@ -59,15 +60,31 @@ const triggerEditorUpdate = (medicine: Medicine) => {
       </div>
       <div class="flex w-full items-center justify-between bg-white py-4 dark:bg-gray-800">
         <div>
-          <button
-            class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-1.5 text-sm font-medium text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-            type="button"
-          >
-            <span class="sr-only">Filter button</span>
-            Filter
-            <chevron-down-icon class="ml-2 h-3 w-3" />
-          </button>
-          <!-- Dropdown menu -->
+          <menu-root as="div" class="relative inline-block text-left text-sm">
+            <menu-button
+              type="button"
+              class="inline-flex items-center rounded-lg border border-gray-300 bg-white px-6 py-1.5 text-sm font-medium text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+            >
+              <span class="sr-only">Filter button</span>
+              Filter
+              <chevron-down-icon class="ml-2 h-3 w-3" />
+            </menu-button>
+            <transition-root
+              enter-active-class="transition duration-100 ease-out"
+              enter-from-class="transform scale-95 opacity-0"
+              enter-to-class="transform scale-100 opacity-100"
+              leave-active-class="transition duration-75 ease-in"
+              leave-from-class="transform scale-100 opacity-100"
+              leave-to-class="transform scale-95 opacity-0"
+            >
+              <menu-items
+                class="absolute left-0 z-10 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              >
+                <menu-item as="a" class="block px-2 py-2">Sheesh</menu-item>
+                <menu-item as="a" class="block px-2 py-2">Kebab</menu-item>
+              </menu-items>
+            </transition-root>
+          </menu-root>
         </div>
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative">
@@ -83,12 +100,12 @@ const triggerEditorUpdate = (medicine: Medicine) => {
         </div>
       </div>
       <data-table :items="medicines" @select="triggerEditorUpdate" />
-      <data-editor
-        :medicine="state.medicine"
-        :open="state.open"
-        :title="state.medicine ? 'Edit Medicine' : 'Create Medicine'"
-        @dismiss="triggerEditorCreate"
-      />
     </div>
   </main>
+  <data-editor
+    :medicine="state.medicine"
+    :open="state.open"
+    :title="state.medicine ? 'Edit Medicine' : 'Create Medicine'"
+    @dismiss="triggerEditorCreate"
+  />
 </template>

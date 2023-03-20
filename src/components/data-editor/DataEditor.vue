@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, reactive } from 'vue'
 import SideBar from '@/components/side-bar/SideBar.vue'
 import { DeviceFloppyIcon } from 'vue-tabler-icons'
 
@@ -8,6 +8,14 @@ const props = defineProps<{
   title: string
   medicine: Medicine | null
 }>()
+const errors = reactive<Record<keyof Omit<Medicine, 'createdAt' | 'updatedAt' | 'id'>, string>>({
+  description: '',
+  quantity: '',
+  unit: '',
+  batch: '',
+  expiry: '',
+  price: ''
+})
 const state = ref<Medicine>({
   id: '',
   description: '',
@@ -23,6 +31,33 @@ const emits = defineEmits(['dismiss', 'submit'])
 
 const dismiss = () => emits('dismiss')
 const submit = () => {
+  const { description, quantity, unit, batch, expiry, price } = state.value
+
+  if (!description || (description && description.trim().length <= 0)) {
+    errors.description = 'A medicine name is required'
+    return
+  }
+  if (quantity <= 0) {
+    errors.quantity = 'Quantity needs to be above 0'
+    return
+  }
+  if (!unit || (unit && unit.trim().length <= 0)) {
+    errors.unit = 'A unit of measurement needs to be defined'
+    return
+  }
+  if (!batch || (batch && batch.trim().length <= 0)) {
+    errors.batch = 'Batch data needs to be defined'
+    return
+  }
+  if (expiry <= 0) {
+    errors.expiry = 'Expiration Date is required'
+    return
+  }
+  if (price <= 0) {
+    errors.price = 'Price is required'
+    return
+  }
+
   emits('submit', state.value)
 }
 
