@@ -14,7 +14,11 @@ const emits = defineEmits(['dismiss'])
   >
     <div class="mb-8 flex items-center justify-between">
       <h6 class="text-lg font-bold" v-text="props.title" />
-      <button type="button" @click="emits('dismiss')">
+      <button
+        type="button"
+        class="rounded-lg p-2 transition-all hover:bg-gray-200"
+        @click="emits('dismiss')"
+      >
         <x-icon class="h-4 w-4" />
       </button>
     </div>

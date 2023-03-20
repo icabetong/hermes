@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { TrashIcon } from 'vue-tabler-icons'
 const props = defineProps<{ items: Medicine[] }>()
 const emits = defineEmits(['select', 'remove'])
 </script>
 
 <template>
-  <div class="relative w-full overflow-x-auto px-4">
+  <div class="relative w-full overflow-x-auto">
     <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
       <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
         <th scope="col" class="px-6 py-3">Description</th>
@@ -34,7 +35,10 @@ const emits = defineEmits(['select', 'remove'])
           <td class="px-6 py-4">{{ medicine.expiry }}</td>
           <td class="px-6 py-4">{{ medicine.price }}</td>
           <td class="px-6 py-4">
-            <button type="button" @click.stop="emits('remove', medicine)">Remove</button>
+            <button type="button" @click.stop="emits('remove', medicine)">
+              <span class="sr-only">Remove</span>
+              <trash-icon class="h-4 w-4" />
+            </button>
           </td>
         </tr>
       </tbody>
