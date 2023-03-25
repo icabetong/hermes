@@ -16,16 +16,18 @@ const errors = reactive<Record<keyof Omit<Medicine, 'createdAt' | 'updatedAt' | 
   expiry: '',
   price: ''
 })
+
+const now = new Date()
 const state = ref<Medicine>({
   id: '',
   description: '',
   quantity: 0,
   unit: '',
   batch: '',
-  expiry: Date.now(),
+  expiry: now.toISOString(),
   price: 0,
-  createdAt: Date.now(),
-  updatedAt: Date.now()
+  createdAt: now.toISOString(),
+  updatedAt: now.toISOString()
 })
 const emits = defineEmits(['dismiss', 'submit'])
 
@@ -49,7 +51,7 @@ const submit = () => {
     errors.batch = 'Batch data needs to be defined'
     return
   }
-  if (expiry <= 0) {
+  if (!expiry || (expiry && expiry.trim().length <= 0)) {
     errors.expiry = 'Expiration Date is required'
     return
   }
@@ -69,19 +71,16 @@ watchEffect(() => {
       quantity: 0,
       unit: '',
       batch: '',
-      expiry: Date.now(),
+      expiry: now.toISOString(),
       price: 0,
-      createdAt: Date.now(),
-      updatedAt: Date.now()
+      createdAt: now.toISOString(),
+      updatedAt: now.toISOString()
     }
     return
   }
 
   state.value = props.medicine
 })
-
-const date = new Date(state.value.expiry).toISOString()
-const expiryDate = date.substring(0, date.indexOf('T')).split('/').join('-')
 </script>
 
 <template>
@@ -106,7 +105,7 @@ const expiryDate = date.substring(0, date.indexOf('T')).split('/').join('-')
         </div>
         <div>
           <label class="form-label" for="expiry">Expiry</label>
-          <input type="date" id="expiry" class="form-input" v-model="expiryDate" />
+          <input type="date" id="expiry" class="form-input" v-model="state.expiry" />
         </div>
         <div>
           <label class="form-label" for="price">Price</label>

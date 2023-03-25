@@ -33,7 +33,7 @@ const formatter = getDateFormatter('short')
           <td class="px-6 py-4">{{ medicine.quantity }}</td>
           <td class="px-6 py-4">{{ medicine.unit }}</td>
           <td class="px-6 py-4">{{ medicine.batch }}</td>
-          <td class="px-6 py-4">{{ formatter.format(medicine.expiry) }}</td>
+          <td class="px-6 py-4">{{ formatter.format(Date.parse(medicine.expiry)) }}</td>
           <td class="px-6 py-4">{{ medicine.price }}</td>
           <td class="px-6 py-4">
             <button type="button" @click.stop="emits('remove', medicine)">

@@ -73,7 +73,12 @@ func main() {
 	}
 }
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+}
+
 func handleGetRequest(database *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 	
 	var medicines []Medicine
@@ -89,6 +94,7 @@ func handleGetRequest(database *gorm.DB, w http.ResponseWriter, r *http.Request)
 }
 
 func handlePostRequest(database *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	var medicine Medicine
 	
 	err := json.NewDecoder(r.Body).Decode(&medicine)
@@ -98,11 +104,13 @@ func handlePostRequest(database *gorm.DB, w http.ResponseWriter, r *http.Request
 	}
 
 	database.Create(&medicine)
+	
 	w.Header().Set("Content-Type", "application-json")
 	w.WriteHeader(http.StatusOK)
 }
 
 func handleDynamicGetRequest(id string, database *gorm.DB, w http.ResponseWriter,  r *http.Request) {
+	enableCors(&w)
 	var medicine Medicine
 
 	if id == "" {
@@ -120,6 +128,7 @@ func handleDynamicGetRequest(id string, database *gorm.DB, w http.ResponseWriter
 	w.Write(data)
 }
 func handleDynamicPatchRequest(id string, database *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	var medicine Medicine
 
 	err := json.NewDecoder(r.Body).Decode(&medicine)
@@ -132,6 +141,7 @@ func handleDynamicPatchRequest(id string, database *gorm.DB, w http.ResponseWrit
 	w.WriteHeader(http.StatusOK)
 }
 func handleDynamicDeleteRequest(id string, database *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	var medicine Medicine
 
 	err := json.NewDecoder(r.Body).Decode(&medicine)

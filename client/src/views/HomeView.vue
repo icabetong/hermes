@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { PlusIcon, SearchIcon, ChevronDownIcon } from 'vue-tabler-icons'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import DataTable from '@/components/data-table/DataTable.vue'
@@ -9,6 +9,7 @@ const state = reactive<{
   open: boolean
   medicine: Medicine | null
   filter: { others: boolean; expired: boolean; near: boolean }
+  medicines: Medicine[]
 }>({
   open: false,
   medicine: null,
@@ -16,33 +17,15 @@ const state = reactive<{
     others: true,
     expired: true,
     near: true
-  }
+  },
+  medicines: []
 })
 
-const medicines: Medicine[] = [
-  {
-    id: '1',
-    description: 'Biogesic',
-    quantity: 100,
-    unit: 'Box',
-    batch: 'Kebab',
-    expiry: Date.now(),
-    price: 6.25,
-    createdAt: Date.now(),
-    updatedAt: Date.now()
-  },
-  {
-    id: '2',
-    description: 'Biogesic',
-    quantity: 100,
-    unit: 'Box',
-    batch: 'Kebab',
-    expiry: Date.now(),
-    price: 6.25,
-    createdAt: Date.now(),
-    updatedAt: Date.now()
-  }
-]
+onMounted(async () => {
+  const response = await fetch(`${import.meta.env.VITE_SERVER_HOST}/medicines`, { method: 'GET' })
+  const data: Medicine[] = await response.json()
+  state.medicines = data
+})
 
 const triggerEditorCreate = () => {
   state.open = !state.open
@@ -52,9 +35,17 @@ const triggerEditorUpdate = (medicine: Medicine) => {
   state.medicine = medicine
   state.open = true
 }
-const triggerEditorSubmit = (medicine: Medicine) => {
-  console.log(medicine)
-  state.open = false
+const triggerEditorSubmit = async (medicine: Medicine) => {
+  try {
+    await fetch(`${import.meta.env.VITE_SERVER_HOST}/medicines`, {
+      method: 'POST',
+      body: JSON.stringify(medicine)
+    })
+  } catch (e) {
+    console.error(e)
+  } finally {
+    state.open = false
+  }
 }
 </script>
 
@@ -121,7 +112,7 @@ const triggerEditorSubmit = (medicine: Medicine) => {
             placeholder="Search for medicines" />
         </div>
       </div>
-      <data-table :items="medicines" @select="triggerEditorUpdate" />
+      <data-table :items="state.medicines" @select="triggerEditorUpdate" />
     </div>
   </main>
   <data-editor

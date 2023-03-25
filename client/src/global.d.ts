@@ -7,9 +7,9 @@ declare global {
     quantity: number
     unit: string
     batch: string
-    expiry: number
+    expiry: string
     price: number
-    createdAt: number
-    updatedAt: number
+    createdAt: string
+    updatedAt: string
   }
 }
